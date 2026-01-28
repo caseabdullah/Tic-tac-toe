@@ -101,6 +101,7 @@
         let reset=document.querySelector('.rst');
         let mssg=document.querySelector('.mssg');
         let pl_x=true;
+        let gameover=false;
         let winPt=[
             [0,1,2],
             [3,4,5],
@@ -111,6 +112,10 @@
             [0,4,8],
             [2,4,6]
         ]
+
+
+        const disableBtns = () => {
+        btns.forEach(btn => btn.disabled = true);};
 
         const announcement=(win)=>{
             mssg.innerText=`Winner Is ${win}`
@@ -123,29 +128,53 @@
             mssg.innerText="";
             pl_x=true;
         })
-        const showWinner=()=>{
-            for (const pattern of winPt) {
-             console.log(pattern[0],pattern[1],pattern[2],);
-             console.log(
-                btns[pattern[0]].innerText,
-                btns[pattern[1]].innerText,
-                btns[pattern[2]].innerText,);
-                let pos1= btns[pattern[0]].innerText;
-                let pos2= btns[pattern[1]].innerText;
-                let pos3= btns[pattern[2]].innerText;
-                if (pos1!=""&&pos2!=""&&pos3!="") {
-                    if
-                    (pos1===pos2&&pos2===pos3){
-                        announcement(pos1);
-                    }
-                    else{
-                        mssg.innerText="Draw"
-                    }
-                }
+        // const showWinner=()=>{
+        //     for (const pattern of winPt) {
+        //      console.log(pattern[0],pattern[1],pattern[2],);
+        //      console.log(
+        //         btns[pattern[0]].innerText,
+        //         btns[pattern[1]].innerText,
+        //         btns[pattern[2]].innerText,);
+        //         let pos1= btns[pattern[0]].innerText;
+        //         let pos2= btns[pattern[1]].innerText;
+        //         let pos3= btns[pattern[2]].innerText;
+        //         if (pos1!=""&&pos2!=""&&pos3!="") {
+        //             if
+        //             (pos1===pos2&&pos2===pos3){
+        //                 announcement(pos1);
+        //             }
+        //         }
                 
                  
-            }
+        //     }
+        // }
+        const showWinner = () => {
+    for (const pattern of winPt) {
+        let pos1 = btns[pattern[0]].innerText;
+        let pos2 = btns[pattern[1]].innerText;
+        let pos3 = btns[pattern[2]].innerText;
+
+        if (pos1 && pos1 === pos2 && pos2 === pos3) {
+            announcement(pos1);
+            gameOver = true;
+            disableBtns();
+            return;
         }
+    }
+
+    // DRAW CHECK
+    let filled = true;
+    btns.forEach(btn => {
+        if (btn.innerText === "") {
+            filled = false;
+        }
+    });
+
+    if (filled && !gameOver) {
+        mssg.innerText = "It's a Draw!";
+    }
+};
+
 
 
 
