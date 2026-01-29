@@ -92,8 +92,8 @@
 
     </div>
     <div class="foot">
-        <p class="mssg"></p>
-        <button class="rst">Reset Game</button>
+            <p class="mssg"></p>
+            <button class="rst">Reset Game</button>
     </div>
     </div>
     <script>
@@ -101,7 +101,7 @@
         let reset=document.querySelector('.rst');
         let mssg=document.querySelector('.mssg');
         let pl_x=true;
-        let gameover=false;
+        let gameOver=false;
         let winPt=[
             [0,1,2],
             [3,4,5],
@@ -115,7 +115,9 @@
 
 
         const disableBtns = () => {
-        btns.forEach(btn => btn.disabled = true);};
+        btns.forEach(btn =>
+        btn.disabled = true);
+        };
 
         const announcement=(win)=>{
             mssg.innerText=`Winner Is ${win}`
@@ -127,34 +129,17 @@
             });
             mssg.innerText="";
             pl_x=true;
+            gameOver=false;
         })
-        // const showWinner=()=>{
-        //     for (const pattern of winPt) {
-        //      console.log(pattern[0],pattern[1],pattern[2],);
-        //      console.log(
-        //         btns[pattern[0]].innerText,
-        //         btns[pattern[1]].innerText,
-        //         btns[pattern[2]].innerText,);
-        //         let pos1= btns[pattern[0]].innerText;
-        //         let pos2= btns[pattern[1]].innerText;
-        //         let pos3= btns[pattern[2]].innerText;
-        //         if (pos1!=""&&pos2!=""&&pos3!="") {
-        //             if
-        //             (pos1===pos2&&pos2===pos3){
-        //                 announcement(pos1);
-        //             }
-        //         }
-                
-                 
-        //     }
-        // }
         const showWinner = () => {
-    for (const pattern of winPt) {
+        for (const pattern of winPt) {
         let pos1 = btns[pattern[0]].innerText;
         let pos2 = btns[pattern[1]].innerText;
         let pos3 = btns[pattern[2]].innerText;
 
-        if (pos1 && pos1 === pos2 && pos2 === pos3) {
+        if (pos1!=""&&pos2!=""&&pos3!="") {
+
+        if (pos1 === pos2 && pos2 === pos3) {
             announcement(pos1);
             gameOver = true;
             disableBtns();
@@ -162,9 +147,10 @@
         }
     }
 
-    // DRAW CHECK
-    let filled = true;
-    btns.forEach(btn => {
+        }
+
+        let filled = true;
+        btns.forEach(btn => {
         if (btn.innerText === "") {
             filled = false;
         }
@@ -175,8 +161,369 @@
     }
 };
 
+        btns.forEach((box)=>{
+            box.addEventListener('click',()=>{
+                if(pl_x){
+                    box.innerText='X';
+                    pl_x=false;
+                    box.style.color='#FAB95B';
+                }
+                else{
+                    box.innerText='O';
+                    pl_x=true;
+                    box.style.color='#C3110C';
+                }
+                box.disabled=true;
+                showWinner();
+            })
+        })
+
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+    <style>
+        *
+        {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body
+        {
+            font-family: "Bungee", sans-serif;
+            background-color: #B7BDF7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .game{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+        h1
+        {
+            text-decoration: underline;
+            color: #4D2B8C;
+            font-size: 40px;
+        }
+        .container{
+            display: grid;
+            gap: 2px;
+            grid-template-columns: repeat(3,1fr);
+            border-radius: 10px;
+            gap: 6px;
+        }
+        .btn{
+            font-family: "Bungee", sans-serif;
+            background-color: white;
+            width: 110px;
+            font-size: 50px;
+            font-weight: bolder;
+            height: 110px;
+            border-radius: 10px;
+            border: none;
+        }
+        .rst{
+            font-family: "Bungee", sans-serif;
+            color: white;
+            background-color: #4D2B8C;
+            padding: 30px;
+            font-size: 15px;
+            width: 170px;
+            text-align: center;
+            border-radius: 40px;
+            border: none;
+        }
+        .mssg{
+            font-size: 20px;
+            text-align: center;
+            color: #4d2b8c;
+        }
+    </style>
+</head>
+<body>
+    <div class="game">
+    <h1>
+        Tic-Tac-Toe
+    </h1>
+    <div class="container">
+
+        <button class="btn"></button>
+        <button class="btn"></button>
+        <button class="btn"></button>
+
+        <button class="btn"></button>
+        <button class="btn"></button>
+        <button class="btn"></button>
+
+        <button class="btn"></button>
+        <button class="btn"></button>
+        <button class="btn"></button>
+
+    </div>
+    <div class="foot">
+            <p class="mssg"></p>
+            <button class="rst">Reset Game</button>
+    </div>
+    </div>
+    <script>
+        let btns=document.querySelectorAll('.btn');
+        let reset=document.querySelector('.rst');
+        let mssg=document.querySelector('.mssg');
+        let pl_x=true;
+        let gameOver=false;
+        let winPt=[
+            [0,1,2],
+            [3,4,5],
+            [6,7,8],
+            [0,3,6],
+            [1,4,7],
+            [2,5,8],
+            [0,4,8],
+            [2,4,6]
+        ]
 
 
+        const disableBtns = () => {
+        btns.forEach(btn =>
+        btn.disabled = true);
+        };
+
+        const announcement=(win)=>{
+            mssg.innerText=`Winner Is ${win}`
+        }
+        reset.addEventListener('click',()=>{
+            btns.forEach((btn)=>{
+                btn.innerText="";
+                btn.disabled=false;
+            });
+            mssg.innerText="";
+            pl_x=true;
+            gameOver=false;
+        })
+        const showWinner = () => {
+        for (const pattern of winPt) {
+        let pos1 = btns[pattern[0]].innerText;
+        let pos2 = btns[pattern[1]].innerText;
+        let pos3 = btns[pattern[2]].innerText;
+
+        if (pos1!=""&&pos2!=""&&pos3!="") {
+
+        if (pos1 === pos2 && pos2 === pos3) {
+            announcement(pos1);
+            gameOver = true;
+            disableBtns();
+            return;
+        }
+    }
+
+        }
+
+        let filled = true;
+        btns.forEach(btn => {
+        if (btn.innerText === "") {
+            filled = false;
+        }
+    });
+
+    if (filled && !gameOver) {
+        mssg.innerText = "It's a Draw!";
+    }
+};
+
+        btns.forEach((box)=>{
+            box.addEventListener('click',()=>{
+                if(pl_x){
+                    box.innerText='X';
+                    pl_x=false;
+                    box.style.color='#FAB95B';
+                }
+                else{
+                    box.innerText='O';
+                    pl_x=true;
+                    box.style.color='#C3110C';
+                }
+                box.disabled=true;
+                showWinner();
+            })
+        })
+
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+    <style>
+        *
+        {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body
+        {
+            font-family: "Bungee", sans-serif;
+            background-color: #B7BDF7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .game{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+        h1
+        {
+            text-decoration: underline;
+            color: #4D2B8C;
+            font-size: 40px;
+        }
+        .container{
+            display: grid;
+            gap: 2px;
+            grid-template-columns: repeat(3,1fr);
+            border-radius: 10px;
+            gap: 6px;
+        }
+        .btn{
+            font-family: "Bungee", sans-serif;
+            background-color: white;
+            width: 110px;
+            font-size: 50px;
+            font-weight: bolder;
+            height: 110px;
+            border-radius: 10px;
+            border: none;
+        }
+        .rst{
+            font-family: "Bungee", sans-serif;
+            color: white;
+            background-color: #4D2B8C;
+            padding: 30px;
+            font-size: 15px;
+            width: 170px;
+            text-align: center;
+            border-radius: 40px;
+            border: none;
+        }
+        .mssg{
+            font-size: 20px;
+            text-align: center;
+            color: #4d2b8c;
+        }
+    </style>
+</head>
+<body>
+    <div class="game">
+    <h1>
+        Tic-Tac-Toe
+    </h1>
+    <div class="container">
+
+        <button class="btn"></button>
+        <button class="btn"></button>
+        <button class="btn"></button>
+
+        <button class="btn"></button>
+        <button class="btn"></button>
+        <button class="btn"></button>
+
+        <button class="btn"></button>
+        <button class="btn"></button>
+        <button class="btn"></button>
+
+    </div>
+    <div class="foot">
+            <p class="mssg"></p>
+            <button class="rst">Reset Game</button>
+    </div>
+    </div>
+    <script>
+        let btns=document.querySelectorAll('.btn');
+        let reset=document.querySelector('.rst');
+        let mssg=document.querySelector('.mssg');
+        let pl_x=true;
+        let gameOver=false;
+        let winPt=[
+            [0,1,2],
+            [3,4,5],
+            [6,7,8],
+            [0,3,6],
+            [1,4,7],
+            [2,5,8],
+            [0,4,8],
+            [2,4,6]
+        ]
+
+
+        const disableBtns = () => {
+        btns.forEach(btn =>
+        btn.disabled = true);
+        };
+
+        const announcement=(win)=>{
+            mssg.innerText=`Winner Is ${win}`
+        }
+        reset.addEventListener('click',()=>{
+            btns.forEach((btn)=>{
+                btn.innerText="";
+                btn.disabled=false;
+            });
+            mssg.innerText="";
+            pl_x=true;
+            gameOver=false;
+        })
+        const showWinner = () => {
+        for (const pattern of winPt) {
+        let pos1 = btns[pattern[0]].innerText;
+        let pos2 = btns[pattern[1]].innerText;
+        let pos3 = btns[pattern[2]].innerText;
+
+        if (pos1!=""&&pos2!=""&&pos3!="") {
+
+        if (pos1 === pos2 && pos2 === pos3) {
+            announcement(pos1);
+            gameOver = true;
+            disableBtns();
+            return;
+        }
+    }
+
+        }
+
+        let filled = true;
+        btns.forEach(btn => {
+        if (btn.innerText === "") {
+            filled = false;
+        }
+    });
+
+    if (filled && !gameOver) {
+        mssg.innerText = "It's a Draw!";
+    }
+};
 
         btns.forEach((box)=>{
             box.addEventListener('click',()=>{
